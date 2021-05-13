@@ -55,8 +55,6 @@ app.delete('/api/notes/:id', function(req,res)
     console.log(noteId);
     newDB = db.filter(note => note.id != noteId)
     res.json(newDB)
-
-
 })
 
 app.listen(PORT, () => 

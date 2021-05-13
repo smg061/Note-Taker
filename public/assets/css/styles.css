@@ -68,3 +68,11 @@ html, body {
   padding: 20px;
   cursor: pointer;
 }
+
+span:hover
+{
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+
