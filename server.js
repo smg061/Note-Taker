@@ -49,7 +49,7 @@ app.post('/api/notes', function(req, res)
 })
 
 
-app.delete('/api/notes/:id', function(req,res)git 
+app.delete('/api/notes/:id', function(req,res)
 {
     let noteId = req.params.id;
     console.log(noteId);
