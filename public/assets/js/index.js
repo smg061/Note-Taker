@@ -69,6 +69,7 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
+    id: undefined,
   };
   console.log(newNote);
   saveNote(newNote).then(() => {
