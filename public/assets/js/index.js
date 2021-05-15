@@ -9,6 +9,7 @@ if (window.location.pathname === '/notes') {
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
+  toggleBtn = document.querySelector('.toggle-edit')
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
@@ -121,6 +122,7 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
+  toggleReadOnly();
   let jsonNotes = await notes.json();
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
@@ -171,14 +173,33 @@ const renderNoteList = async (notes) => {
   }
 };
 
+const toggleReadOnly = () => 
+{
+  if(noteTitle.getAttribute('readonly') && noteText.getAttribute('readonly'))
+  {
+    toggleBtn.setAttribute('class', "fas fa-unlock text-light toggle-edit")
+      noteTitle.removeAttribute('readonly');
+      noteText.removeAttribute('readonly');
+  }
+  else 
+  {
+    toggleBtn.setAttribute('class', "fas fa-lock text-light toggle-edit")
+    noteTitle.setAttribute('readonly', true);
+    noteText.setAttribute('readonly', true);
+  }
+
+}
+
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
+  toggleBtn.addEventListener('click', toggleReadOnly);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
+
 }
 
 getAndRenderNotes();
