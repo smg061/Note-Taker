@@ -32,7 +32,10 @@ app.get('/api/notes', function(req, res)
 
 app.post('/api/notes', function(req, res)
 {
-    addNewNote(req);
+    let newNote = req.body;
+    let latestId = db.length > 0? db[db.length-1].id + 1 : 0; // get the id of the last element and add 1 to get latest id; if database is empty, give an id of 0
+    newNote.id = latestId;
+    db.push(newNote);
     updateDatabase(db);
     res.json(newNote);
 })
@@ -41,8 +44,9 @@ app.delete('/api/notes/:id', function(req,res)
 {
     let noteId = req.params.id;
     console.log(noteId);
-    newDB = db.filter(note => note.id != noteId)
-    updateDatabase(newDB);
+    // newDB = db.filter(note => note.id != noteId)
+    removeNoteById(noteId);
+    updateDatabase(db);
 })
 
 app.listen(PORT, () => 
@@ -52,21 +56,21 @@ app.listen(PORT, () =>
 })
 
 
-function updateDatabase(db) {
-
-    fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(db), err => 
+async function updateDatabase(db) {
+    await fs.promises.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(db), err => 
     {
         if (err) throw err;
         else console.log("Note added succesfully");
     });
-
 }
 
-async function addNewNote(req)
+function removeNoteById(noteId)
 {
-    let newNote = req.body;
-    let latestId = db[db.length-1].id+1; // get the id of the last element and add 1;
-    newNote.id = latestId;
-    db.push(newNote);
-
+    for (let i = 0; i < db.length; i++) 
+    {
+        if(db[i].id == noteId)
+        {
+            db.splice(i, 1);
+        }
+    }
 }
