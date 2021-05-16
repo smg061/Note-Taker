@@ -15,7 +15,7 @@ The deployed app can be accessed from [here](https://dashboard.heroku.com/apps/n
 
 
 ## Installation Instructions <a name="installation"></a>
-No installation required. Just visit the [deployed app](https://dashboard.heroku.com/apps/note-taker-smg061/resources)
+No installation required. Just visit the [deployed app](https://dashboard.heroku.com/apps/note-taker-smg061/resources). 
 If you wish to run the app locally, clone the repository, install the dependencies and type ```npm run watch``` into the console. This should deploy the server locally into localhost:3000. 
 
 ## Usage Information <a name="usage"></a>
